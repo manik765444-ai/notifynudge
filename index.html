@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Toast</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Toast Container Styles */
+        .toast-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        
+        /* Toast Notification Styles */
+        .toast {
+            background: linear-gradient(120deg, #4caf50, #66bb6a);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        
+        /* Toast Notification Hover Styles */
+        .toast:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Close Button Styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        /* Close Button Hover Styles */
+        .close-btn:hover {
+            color: #ccc;
+        }
+        
+        /* Button Styles */
+        .btn {
+            background: linear-gradient(120deg, #4caf50, #66bb6a);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Button Hover Styles */
+        .btn:hover {
+            background: linear-gradient(120deg, #3e8e41, #4caf50);
+        }
+    </style>
+</head>
+<body>
+    <button class="btn" id="show-toast">Show Toast</button>
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        // Get the toast container and button elements
+        const toastContainer = document.getElementById('toast-container');
+        const showToastBtn = document.getElementById('show-toast');
+
+        // Function to create a toast notification
+        function createToast(message) {
+            // Create a new toast element
+            const toast = document.createElement('div');
+            toast.classList.add('toast');
+            toast.innerHTML = `
+                <span>${message}</span>
+                <span class="close-btn">&times;</span>
+            `;
+
+            // Add the toast to the container
+            toastContainer.appendChild(toast);
+
+            // Get the close button
+            const closeBtn = toast.querySelector('.close-btn');
+
+            // Add event listener to the close button
+            closeBtn.addEventListener('click', () => {
+                // Remove the toast from the container
+                toastContainer.removeChild(toast);
+            });
+
+            // Automatically remove the toast after 5 seconds
+            setTimeout(() => {
+                toastContainer.removeChild(toast);
+            }, 5000);
+        }
+
+        // Add event listener to the show toast button
+        showToastBtn.addEventListener('click', () => {
+            createToast('This is a sample toast notification!');
+        });
+    </script>
+</body>
+</html>
